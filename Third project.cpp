@@ -15,22 +15,21 @@
 
 #include <iomanip> //includes manipulators (that take parameters, strings are left justified, numbers are right justified)
 
-#include <string>
+//#include <string>
 
-#include <fstream> //fstream header
 
 using namespace std;
 
 const double pi = 3.1416;// definition of pi by professor
-// precondition : main funbtion will provide perameters and called by calradius
+// precondition : main function will provide perameters and called by calradius
 //  posconditions: distence is returned to calradius.
 double calcDistance(double x1, double y1, double x2, double y2); 
 
-// precondition : main funbtion will provide perameters it will call call calcDistance and calradius  
+// precondition : main function will provide perameters it will call call calcDistance and calradius  
 //  posconditions: will rename distance radius and give cout radius and send to main as a reference value.
 void calcRadius(double x1, double y1, double x2, double y2, double& radius);
 
-// precondition : called by main function and the main funbtion will provide reference values - radius
+// precondition : called by main function and the main function will provide reference values - radius
 // posconditions: Will calculate area and c out the area.
 void calcArea(double nubx1, double nuby1, double nubx2, double nuby2, double rad);
 
@@ -42,16 +41,11 @@ int main()
 {
     
         double numx1, numy1, numx2, numy2, r;
-        numx1 = 0;
-        numy1 = 0;
-        numx2 = 0;
-        numy2 = 0;
-        r = 0;
 
-        cout << " Please, enter input the coordinates of the first point (x1 y1) in the cartesian plane separated by a space: ";
+        cout << " Please, enter input the center coordinates of the first point (x1 y1) in the cartesian plane separated by a space: ";
         cin >> numx1 >> numy1;
 
-        cout << "Enter the coordinates of the second point (x2 y2) in the cartesian plane separated by a space: ";
+        cout << "Enter the circumference coordinates of the second point (x2 y2) in the cartesian plane separated by a space: ";
         cin >> numx2 >> numy2;
 
         calcRadius (numx1, numy1,numx2, numy2,r);
