@@ -1,104 +1,115 @@
-/*
-* Immanuel Braxton
-* 10/23/2024
-* Discription: This program will ask user to input the current price of an item and its price one year and two years ago.
-* This program will calculate the inflation rate for two successive years, and determine whether the inflation
-* trend is increasing or decreasing. Then, this function will output the two inflation rates calculated, and its 
-* trend prior to going back to the main function and terminating. ".
+// Functions and Parameters Project II.cpp : This file contains the 'main' function. Program execution begins and ends there.
+/*Immanuel Braxton
+4 / 20 / 2024
+TThis program will ask user to input the current price of an item and its price one year and two years ago.
+This program will calculate the inflation rate for two successive years, and determine whether the inflation
+trend is increasing or decreasing. Then, this function will output the two inflation rates calculated, and its
+trend prior to going back to the main function and terminating. ".
+
 */
 
 
-// Third project.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
 
-#include <iostream>
+#include <iostream> 
 
 #include <iomanip> //includes manipulators (that take parameters, strings are left justified, numbers are right justified)
 
-#include <string>
+//#include <string>  // not used
 
-#include <fstream> //fstream header
+//#include <cmath> // 
+
+//#include <fstream> // not used fstream header
+
+
 
 using namespace std;
 
-const double pi = 3.1416;// definition of pi by professor
-// precondition : main funbtion will provide perameters and called by calradius
-//  posconditions: distence is returned to calradius.
-double calcDistance(double x1, double y1, double x2, double y2); 
 
-// precondition : main funbtion will provide perameters it will call call calcDistance and calradius  
-//  posconditions: will rename distance radius and give cout radius and send to main as a reference value.
-void calcRadius(double x1, double y1, double x2, double y2, double& radius);
 
-// precondition : called by main function and the main funbtion will provide reference values - radius
-// posconditions: Will calculate area and c out the area.
-void calcArea(double nubx1, double nuby1, double nubx2, double nuby2, double rad);
+// precondition :  called by main, and send  current price, one year ago price, and two year ago price, and initial value for inflation rate 1 and 2
+//  posconditions: cill calculate infr1 and infr2 from current price, one year ago price, and two year ago price, changing inflration rates send to as ref to main
+void calcInflation(double num0, double num1, double num2, double& infr1, double& infr2); // Function prototype for calculating inflation rate
 
-// precondition : Is called by the main function and the main function provides the refernce value.
-// posconditions: Will calculate the circumference and c out the circumference.
-void calcCircumference(double nux1, double nuy1, double nux2, double nuy2, double radi);
+// precondition : called by main, nothing given
+// posconditions: will ask for current price, one year ago price, and two year ago price, send parameters to main as reference
+void getPrices(double& numx1, double& numx2, double& nunx3);
+
+// precondition : Is called by main, recieves current price, one year ago price, and two year ago price, and new values for rate1 and rate2
+// posconditions: Will display the calculated rate1 and rate2, and whether the inflaton rate is increasing or decreasing.  
+void displayResults(double nux1, double nux2, double nux3, double rate1, double rate2); // Function prototype for determining inflation trend
 
 int main()
 {
-    
-        double numx1, numy1, numx2, numy2, r;
-        numx1 = 0;
-        numy1 = 0;
-        numx2 = 0;
-        numy2 = 0;
-        r = 0;
 
-        cout << " Please, enter input the coordinates of the first point (x1 y1) in the cartesian plane separated by a space: ";
-        cin >> numx1 >> numy1;
+    double currrentprice, oneyragoprice, twoyragoprice, infrate1, infrate2; // input from user
+    currrentprice = 0;
+    oneyragoprice = 0;
+    twoyragoprice = 0;
+    infrate1 = 0;
+    infrate2 = 0;
 
-        cout << "Enter the coordinates of the second point (x2 y2) in the cartesian plane separated by a space: ";
-        cin >> numx2 >> numy2;
 
-        calcRadius (numx1, numy1,numx2, numy2,r);
 
-        calcCircumference (numx1,numy1, numx2, numy2, r);
+    getPrices(currrentprice, oneyragoprice, twoyragoprice);
 
-        calcArea (numx1,numy1, numx2, numy2, r);
-        
+    calcInflation(currrentprice, oneyragoprice, twoyragoprice, infrate1, infrate2);
 
-        return 0;
+    displayResults(currrentprice, oneyragoprice, twoyragoprice, infrate1, infrate2); // Determine the trend of inflation
+
+
+    return 0;
 
 }
 
 
-void calcArea(double nubx1, double nuby1, double nubx2, double nuby2, double rad)
+void getPrices(double& numx1, double& numx2, double& nunx3)
 {
-    double area = pi * rad * rad;
-    cout << "The area of the circle is: " << endl;
-    cout << fixed << showpoint << setprecision(2) << setw(4) << area << endl;
+    cout << " Please, enter the current price of the item : ";
+    cin >> numx1;
+
+    cout << " Please, enter the price of the item one year ago: ";
+    cin >> numx2;
+
+    cout << " Please, enter the price of the item two years ago : ";
+    cin >> nunx3;
+
 }
 
-void calcCircumference(double nux1, double nuy1, double nux2, double nuy2, double radi)
+void calcInflation(double num0, double num1, double num2, double& infr1, double& infr2) // Function definition for calculating inflation rate
 {
-    double circumference = 2 *pi * radi;
-    cout << "The circumference of the circle is: " << endl;
-    cout << fixed << showpoint << setprecision(2) << setw(4) << circumference << endl;
+    infr1 = 0;
+    infr2 = 0;
+
+    infr1 = (num0 - num1) / num1;
+
+    infr2 = (num1 - num2) / num2;
 }
 
 
-void calcRadius(double x1, double y1, double x2, double y2, double& radius)
+void displayResults(double nux1, double nux2, double nux3, double rate1, double rate2) // Function definition for determining inflation trend
 {
-   
-    radius = calcDistance(x1, y1, x2, y2); 
+    cout << fixed << showpoint << setprecision(2) << setw(4) << endl;
+    cout << "The inflation rate for the current year and one year ago is: " << rate1 << endl;
+    cout << "The inflation rate for one year ago and two years ago is: " << rate2 << endl;
 
-    cout << "The radius between the points is: " << endl;
-    cout << fixed << showpoint << setprecision(2) << setw(4) << radius << endl;
+    if (rate1 > 0 && rate1 > rate2)
+    {
+        cout << "The inflation trend is increasing." << endl;
+    }
+    else if (rate1 > 0 && rate1 < rate2)
+    {
+        cout << "The inflation trend is still inflating." << endl;
+    }
+    else if (rate1 < rate2)
+    {
+        cout << "The inflation trend is decreasing." << endl;
+    }
+    else
+    {
+        cout << "The inflation rates are the same for both years." << endl;
+    }
+    //cout << fixed << showpoint << setprecision(2) << setw(4) << circumference << endl;
+   // cout << "The inflation rate for the current year and one year ago is: " << rate1 << endl;
+   // cout << "The inflation rate for the current year and one year ago is: " << rate1 << endl;
+
 }
-
-
-double calcDistance(double x1, double y1, double x2, double y2)
-{
-    
-    return sqrt(pow((x2 - x1), 2) + pow((y2 - y1), 2));
-   
-    
-
-    //cout << "The distance between the points (" << x1 << ", " << y1 << ") and (" << x2 << ", " << y2 << ") is: " << endl;
-    //cout << fixed << showpoint << setprecision(2) << setw(4) << distance << endl;
-}
-
